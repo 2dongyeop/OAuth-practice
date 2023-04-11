@@ -19,6 +19,7 @@ Spring Security를 사용하지 않고 OAuth를 구현하는 프로젝트입니�
 3. White Label Page를 무시하고, 주소창에 생긴 code 값을 가져온다. 
 
 → ex) localhost:8080/redirect/oauth?code=***{code}***
+
 4. Postman을 이용해 이 코드를 백엔드 서버로 보내보자.
 5. `GET` http://localhost:8080/login/oauth/google?code={위에서 받은 코드}
 6. Response로 받은 정보를 확인
