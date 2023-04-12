@@ -20,9 +20,12 @@ Spring Security를 사용하지 않고 OAuth를 구현하는 프로젝트입니�
 
 → ex) localhost:8080/redirect/oauth?code=***{code}***
 
-4. Postman을 이용해 이 코드를 백엔드 서버로 보내보자.
+4. Postman을 이용해 이 코드를 백엔드 서버로 보내보자. (아래의 provider에는 google, github, naver가 해당)
 
-→ `GET` http://localhost:8080/login/oauth/google?code={위에서받은코드}
+→ `GET` http://localhost:8080/login/oauth/{provider}?code={code}
+
+provider는 github, naver, google이 해당
+
 5. Response로 받은 정보를 확인
 6. h2 database에 접속해 회원 정보 확인
 
