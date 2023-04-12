@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
-    @Value("${jwt.access-token.expire-length:10000}")
+    @Value("${jwt.access-token.expire-length}")
     private long accessTokenValidityInMilliseconds;
-    @Value("${jwt.refresh-token.expire-length:10000}")
+    @Value("${jwt.refresh-token.expire-length}")
     private long refreshTokenValidityInMilliseconds;
-    @Value("${jwt.token.secret-key:secret-key}")
+    @Value("${jwt.token.secret-key}")
     private String secretKey;
 
     public String createAccessToken(final String payload) {

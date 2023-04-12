@@ -28,14 +28,28 @@ public class OauthService {
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
+     * OAuth 로그인 시 할 일은 크게 2가지이다.
+     * 1. 프론트에서 받은 authorizatoin code를 통해 OAuth 서버의 access token을 얻어오는 것
+     * 2. access token을 통해 실제 유저 정보를 얻어오는 것
+     */
+
     public LoginResponse login(final String providerName, final String code) {
         // 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
+        // access token을 가져오기 위해서는 OauthProvider가 필요!
         OauthProvider provider = inMemoryProviderRepository.findByProviderName(providerName);
 
+        //access token을 가져오거나, 유저 정보를 가져올 때는 실제로 OAuth 서버와 통신을 해야한다.
+        // WebClient를 사용하여 통신을 하려고한다. 아래의 의존성을 추가해주자.
+        // build.gradle -> `implementation 'org.springframework.boot:spring-boot-starter-webflux'`
+
         // TODO access token 가져오기
+        // 아래의 OauthTokenResponse는 OAuth 서버와의 통신을 통해 access token을 받아올 dto
         OauthTokenResponse tokenResponse = getToken(code, provider);
 
         // TODO 유저 정보 가져오기
+        // OAuth 서버에 WebClient를 통해 유저 정보를 요청하고 map으로 받아온다. -> getUserAttributes
+        // Bearer 타입으로 Auth 헤더에 access token 값을 담아주면 된다. -> getUserProfile
         UserProfile userProfile = getUserProfile(providerName, tokenResponse, provider);
 
         // TODO 유저 DB에 저장
@@ -87,6 +101,14 @@ public class OauthService {
     }
 
     private OauthTokenResponse getToken(final String code, final OauthProvider provider) {
+        /**
+         * 이제 WebClient를 사용해 OAuth 서버에 access token 요청을 하면 된다.
+         * 프로퍼티 파일에 적어줬던 access token을 요청할 수 있는 uri에 요청을 보내면 된다.
+         * 이 때 헤더에 client-id와 client-secret값으로 Basic Auth를 추가해주고,
+         *       컨텐츠 타입을 APPLICATION_FORM_URLENCODED로 설정해준다.
+         * 요청 바디에는 authorization code, redirect_uri 등을 넘겨주면 된다.
+         */
+
         return WebClient.create()
                 .post()
                 .uri(provider.getTokenUrl())

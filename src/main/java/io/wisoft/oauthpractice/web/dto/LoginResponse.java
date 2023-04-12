@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class LoginResponse {
+    /**
+     * 프론트로 보낼 Dto
+     */
     private Long id;
     private String name;
     private String email;

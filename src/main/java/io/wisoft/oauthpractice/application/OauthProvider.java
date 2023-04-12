@@ -6,6 +6,13 @@ import lombok.Getter;
 
 @Getter
 public class OauthProvider {
+
+    /**
+     * 저장소에 저장하기에 앞서 OauthProperties를 분해해야 한다.
+     * 스프링 시큐리티로 보면 ClientRegistration 객체를 만들어 주는 것에 해당!
+     *
+     * OauthAdapter.java로 가보자.
+     */
     private final String clientId;
     private final String clientSecret;
     private final String redirectUrl;

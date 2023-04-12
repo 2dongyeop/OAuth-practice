@@ -7,6 +7,8 @@ build/
 
 
 *application-oauth.yml*
+*application-jwt.yml*
+
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,intellij,intellij+iml,intellij+all,java

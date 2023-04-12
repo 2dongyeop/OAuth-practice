@@ -7,6 +7,12 @@ import lombok.Getter;
 
 @Getter
 public class UserProfile {
+
+    /**
+     * OAuth 서버 별로 가져올 수 있는 유저 정보가 다르다.
+     * oauthId, email, name, imageUrl 정도만 DTO를 이용해 가져와보자!
+     */
+
     private final String oauthId;
     private final String email;
     private final String name;
